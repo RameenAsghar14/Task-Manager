@@ -1,0 +1,32 @@
+<div class="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-lg mt-8">
+  <h2 class="text-3xl font-bold text-gray-800 mb-6">Create New Task</h2>
+
+  <%= form_with model: @task, local: true do |f| %>
+    <div class="mb-4">
+      <%= f.label :title, "Task Title", class: "block text-sm font-semibold text-gray-700" %>
+      <%= f.text_field :title, class: "w-full border border-gray-300 p-2 rounded-md" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :description, "Task Description", class: "block text-sm font-semibold text-gray-700" %>
+      <%= f.text_area :description, class: "w-full border border-gray-300 p-2 rounded-md" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :due_date, "Due Date", class: "block text-sm font-semibold text-gray-700" %>
+      <%= f.date_field :due_date, class: "w-full border border-gray-300 p-2 rounded-md" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :category_id, "Category", class: "block text-sm font-semibold text-gray-700" %>
+      <%= f.collection_select :category_id, @categories, :id, :name, prompt: "Select Category", class: "w-full border border-gray-300 p-2 rounded-md" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :status, "Status", class: "block text-sm font-semibold text-gray-700" %>
+      <%= f.select :status, Task.statuses.keys.map { |status| [status.humanize, status] }, prompt: "Select Status", class: "w-full border border-gray-300 p-2 rounded-md" %>
+    </div>
+
+    <%= f.submit "Create Task", class: "bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-md shadow-md" %>
+  <% end %>
+</div>
