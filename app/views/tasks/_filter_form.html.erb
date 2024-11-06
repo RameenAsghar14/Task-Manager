@@ -7,7 +7,7 @@
     <%= f.collection_select :category_id_eq, @categories, :id, :name, { prompt: "Select Category" }, class: "border border-gray-300 p-3 rounded-md w-full md:w-1/3" %>
     
     <!-- Due Date Field -->
-    <%= f.date_field :due_date_lteq, placeholder: "Due Before", class: "border border-gray-300 p-3 rounded-md w-full md:w-1/3" %>
+    <%= f.date_field :due_date_eq, placeholder: "Due Before", class: "border border-gray-300 p-3 rounded-md w-full md:w-1/3" %>
     
     <!-- Status Select Dropdown -->
     <%= f.select :status_eq, options_for_select(Task.statuses.keys.map { |status| [status.humanize, status] }), { prompt: "Select Status" }, class: "border border-gray-300 p-3 rounded-md w-full md:w-1/3" %>

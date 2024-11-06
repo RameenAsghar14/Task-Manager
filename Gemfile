@@ -50,18 +50,21 @@ gem "sassc-rails"
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+gem 'ransack'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
+  gem 'rails-controller-testing'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'devise'
-  gem 'rspec-rails'
   gem 'tailwindcss-rails'
   gem 'web-console'
-  gem 'ransack'
   gem "cssbundling-rails"
   gem 'simple_calendar', '~> 2.1'
 

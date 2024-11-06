@@ -30,4 +30,14 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  tasks:
+    create:
+      success: "Task was successfully created."
+    update:
+      success: "Task was successfully updated."
+    destroy:
+      success: "Task was successfully deleted."
+  errors:
+    task:
+      title_blank: "Title can't be blank"
+      due_date_blank: "Due date can't be blank"
