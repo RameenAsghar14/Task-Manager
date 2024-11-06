@@ -63,6 +63,7 @@ group :development do
   gem 'web-console'
   gem 'ransack'
   gem "cssbundling-rails"
+  gem 'simple_calendar', '~> 2.1'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"

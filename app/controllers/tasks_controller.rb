@@ -54,6 +54,11 @@ class TasksController < ApplicationController
     end
   end
 
+def calendar
+  @tasks = Task.all
+  @month = Date.today.beginning_of_month
+end
+
   private
 
   def set_task
