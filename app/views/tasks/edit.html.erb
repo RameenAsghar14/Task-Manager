@@ -1,0 +1,41 @@
+<div class="container mx-auto max-w-4xl bg-white p-8 rounded-lg shadow-lg mt-12">
+  <h2 class="text-3xl font-extrabold text-blue-700 mb-8 text-center">Edit Task</h2>
+
+  <%= form_with model: @task, local: true, class: "space-y-6" do |f| %>
+    
+    <!-- Task Title -->
+    <div class="mt-4">
+      <%= f.label :title, "Task Title", class: "block text-lg font-semibold text-gray-800 mb-3" %>
+      <%= f.text_field :title, class: "w-full border border-gray-300 p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200" %>
+    </div>
+
+    <!-- Task Description -->
+    <div class="mt-4">
+      <%= f.label :description, "Task Description", class: "font-semibold"%>
+      <%= f.text_area :description, rows: 4, class: "w-full border border-gray-300 p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200" %>
+    </div>
+
+      <!-- Due Date -->
+      <div class="mt-4">
+        <%= f.label :due_date, "Due Date", class: "font-semibold " %>
+        <%= f.date_field :due_date, class: "w-full border border-gray-300 p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200" %>
+      </div>
+
+          <!-- Category Dropdown -->
+    <div class="mt-4">
+        <%= f.label :category_id, "Category", class: "block text-lg font-semibold text-gray-800 mb-2" %>
+        <%= f.collection_select :category_id, @categories, :id, :name, prompt: "Select Category", class: "w-full border border-gray-300 p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 appearance-none" %>
+      </div>
+    <!-- Status Dropdown -->
+    <div class="mt-4">
+      <%= f.label :status, "Status", class: "block text-lg font-semibold text-gray-800 mb-2" %>
+      <%= f.select :status, Task.statuses.keys.map { |status| [status.humanize, status] }, prompt: "Select Status", class: "w-full border border-gray-300 p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 appearance-none" %>
+    </div>
+
+    <!-- Buttons: Update and Cancel -->
+    <div class="flex justify-center space-x-4 mt-8">
+      <%= f.submit "Update", class: "bg-blue-600 hover:bg-blue-700 text-white font-semibold p-3 rounded-md w-full md:w-auto mt-4 md:mt-0" %>
+<%= link_to "Cancel", tasks_path, class: "bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-6 p-3 rounded-lg shadow-md transition duration-200 transform hover:scale-105" %>
+    </div>
+  <% end %>
+</div>

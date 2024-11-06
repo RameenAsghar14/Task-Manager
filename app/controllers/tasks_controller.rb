@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  respond_to :html, :turbo_stream
+
   before_action :authenticate_user!
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
     @categories = Category.all
-    @tasks = current_user.tasks
-
-    @tasks = @tasks.where('title ILIKE ?', "%#{params[:search]}%") if params[:search].present?
-
-    @tasks = @tasks.where(category_id: params[:category_id]) if params[:category_id].present?
-
-    @tasks = @tasks.where('due_date <= ?', params[:due_date]) if params[:due_date].present?
+    @q = current_user.tasks.ransack(params[:q])
+    @tasks = @q.result(distinct: true)
   end
 
   def new
@@ -20,29 +17,41 @@ class TasksController < ApplicationController
     @categories = Category.all
   end
 
+  def show
+    # This action will use the @task set by the set_task before_action
+  end
+
   def create
     @task = current_user.tasks.build(task_params)
     @categories = Category.all
-    if @task.save
+    if @task.save!
       redirect_to tasks_path, notice: 'Task was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def edit; end
+  def edit
+    @categories = Category.all
+  end
 
   def update
+    @categories = Category.all
     if @task.update(task_params)
-      redirect_to tasks_path, notice: 'Task updated successfully.'
+      redirect_to tasks_path, notice: 'Task was successfully updated.'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
+    @task = current_user.tasks.find(params[:id])
     @task.destroy
-    redirect_to tasks_path, notice: 'Task deleted successfully.'
+
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@task) }
+      format.html { redirect_to tasks_path, notice: 'Task was successfully deleted.', status: :see_other }
+    end
   end
 
   private

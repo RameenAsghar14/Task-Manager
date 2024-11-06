@@ -1,0 +1,30 @@
+<nav class="bg-blue-600 shadow sticky top-0 z-50">
+  <div class="container mx-auto px-2 py-2 flex justify-between items-center">
+    <!-- Logo with Increased Font Size -->
+    <div class="text-white font-extrabold text-3xl">
+      <%= link_to "Task Manager", root_path, class: "hover:text-gray-200" %>
+    </div>
+
+    <!-- Profile Dropdown for Signed-In User -->
+    <% if user_signed_in? %>
+      <div class="relative">
+        <!-- Profile Button with Only Logout Option -->
+        <button type="button" class="text-white font-semibold focus:outline-none hover:text-gray-200">
+          <%= current_user.email %> <i class="fas fa-caret-down ml-1"></i>
+        </button>
+
+        <!-- Logout Dropdown Menu -->
+        <div class="text-white font-semibold focus:outline-none hover:text-gray-200">
+        <%= button_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?", turbo: true }, class: "text-white font-semibold block px-4 py-2 bg-transparent hover:bg-gray-200" %>
+          
+        </div>
+      </div>
+    <% else %>
+      <!-- Sign In and Sign Up links for guests -->
+      <div class="space-x-4">
+        <%= link_to "Sign Up", new_user_registration_path, class: "text-white font-semibold hover:text-gray-200" %>
+        <%= link_to "Login", new_user_session_path, class: "text-white font-semibold hover:text-gray-200" %>
+      </div>
+    <% end %>
+  </div>
+</nav>
